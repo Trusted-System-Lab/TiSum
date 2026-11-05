@@ -1,0 +1,41 @@
+__all__ = ["tokenize"]
+
+import re
+from collections import deque
+
+
+def tokenize(lines: list[str]) -> list[deque[str]]:
+    """The input is a list of lines from a VNNLIB file and this funciton tokenizes each line."""
+    token_pattern = re.compile(
+        r"""
+            \s*                                            # optional whitespace
+            (
+                -?(?:\d+\.\d*|\.\d+|\d+)([eE][-+]?\d+)? |  # float/scientific notation
+                -?\d+                                   |  # integer
+                [a-zA-Z_][a-zA-Z0-9_-]*                 |  # identifier
+                [()]                                    |  # parentheses
+                <=|>=|==|!=|=|<|>                       |  # comparison operators
+                [-+*/]                                  |  # arithmetic operators
+            )
+            """,
+        re.VERBOSE,
+    )
+
+    tokens_list = []
+    for i, line in enumerate(lines):
+        pos = 0
+        tokens = []
+        while pos < len(line):
+            match = token_pattern.match(line, pos)
+            if not match:
+                raise ValueError(
+                    f"Invalid token at line {i+1}, position {pos}: '{line[pos:].strip()}'"
+                )
+            token = match.group(1)
+            tokens.append(token)
+            pos = match.end()
+
+        if tokens:
+            tokens_list.append(deque(tokens))
+
+    return tokens_list

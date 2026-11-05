@@ -1,0 +1,16 @@
+__all__ = ["ToyCache"]
+
+from collections import OrderedDict
+from dataclasses import dataclass, field
+
+from ..template import *
+
+
+@dataclass(slots=True)
+class ToyCache(TCache):
+    """Cache implementation for the toy model."""
+
+    cur_node: TNode | None = None
+    symbnds: dict[str, tuple] = field(default_factory=OrderedDict)
+    bnds: dict[str, tuple] = field(default_factory=OrderedDict)
+    rlxs: dict[str, tuple] = field(default_factory=OrderedDict)

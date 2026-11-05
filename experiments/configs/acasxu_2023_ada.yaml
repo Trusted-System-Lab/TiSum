@@ -1,0 +1,76 @@
+OriModelArgs:
+  use_vnnlib: true
+  device: cuda:0
+  dtype: float32
+AdvAttackArgs:
+  use_vnnlib: true
+  device: cuda:0
+  dtype: float32
+  adv_lr: 0.1
+  adv_min_loss_change: 0.001
+  adv_restarts: 20
+  adv_num_points: 100000
+  adv_max_iters: 10
+AdaPropArgs:
+  use_vnnlib: true
+  device: cuda:0
+  dtype: float32
+  bound_prop_mode: 1
+  act_relax_mode: 1
+  store_all_bnds: true
+  ada_optimizer: adam
+  ada_lr: 0.1
+  ada_weight_decay: 0.0
+  ada_max_iters: 20
+  ada_min_loss_change: 0.001
+  ada_max_opt_layers: -1
+  ada_only_last_layer: false
+  refine_by_scalarize_each_layer: false
+  refine_by_interval_arithmetic: true
+LinPropArgs:
+  use_vnnlib: true
+  device: cuda:0
+  dtype: float32
+  bound_prop_mode: 1
+  act_relax_mode: 1
+  store_all_bnds: true
+  refine_by_scalarize_each_layer: false
+  refine_by_interval_arithmetic: true
+BatchedInputSplitPropArgs:
+  use_vnnlib: true
+  device: cuda:0
+  dtype: float32
+  bab_timeout: 116
+  bab_max_cached_branches: -1
+  bab_max_depth: 50
+  bab_max_paral_branches: 64 # 128 # 512
+  bab_split_mode: 1
+  bab_branch_queue_priority_mode: 6
+  bab_use_parent_branch_caches: true
+  bab_use_adv_attack_before_prop: true
+  bab_adv_lr: 0.1
+  bab_adv_min_loss_change: 0.00001
+  bab_adv_restarts: 10
+  bab_adv_num_points: 10000
+  bab_adv_max_iters: 10
+  bab_thr_to_try_adv_attack: 0.0000
+  bab_max_depth_for_only_split: 0
+  bab_max_range_for_only_split: 100
+  bab_min_range_for_only_split: 0
+  bab_use_direct_symbols: true
+  bab_use_linprop: true
+  bab_use_quadprop: false
+  bab_use_adaprop: true
+  bab_ada_only_last_layer: false
+  bab_max_paral_linprog_models: 1000
+  bab_use_linprog_when_small_range: true
+  bab_use_linprog_min_depth: 5
+  bab_use_linprog_max_depth: 20
+  bab_use_linprog_with_mip: true
+  bab_use_mip_min_depth: 5
+  bab_use_mip_max_depth: 15
+#  bab_lp_min_range_mip_relu: 0
+  bab_use_linprog_max_num_mip_relu: 100
+  bab_use_linprog_timelimit: 3
+  bab_thr_to_try_linprog: 0.001
+  bab_thr_to_try_mip: 0.01 # 0.5
